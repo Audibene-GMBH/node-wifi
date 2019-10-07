@@ -3,8 +3,8 @@ var exec = require('child_process').exec;
 var env = require('./env');
 var scan = require('./windows-scan');
 
-const testingPath = 'C:\\Users\\hearcomadmin\\AppData\\Roaming\\FitKit\\'
-const kioskPath = 'C:\\Users\\kioskUser0\\AppData\\Roaming\\FitKit\\'
+// const testingPath = 'C:\\Users\\hearcomadmin\\AppData\\Roaming\\FitKit\\'
+const hearcomPath = 'C:\\Users\\hearcom\\AppData\\Roaming\\FitKit\\'
 
 function execCommand(cmd) {
   return new Promise(function(resolve, reject) {
@@ -34,13 +34,13 @@ function connectToWifi(config, ap, callback) {
       }
 
       fs.writeFileSync(
-        kioskPath + 'nodeWifiConnect.xml',
+        hearcomPath + 'nodeWifiConnect.xml',
         win32WirelessProfileBuilder(selectedAp, ap.password)
       );
     })
     .then(function() {
       return execCommand(
-        'netsh wlan add profile filename="'+ kioskPath+'nodeWifiConnect.xml"'
+        'netsh wlan add profile filename="'+ hearcomPath+'nodeWifiConnect.xml"'
       );
     })
     .then(function() {
@@ -52,7 +52,7 @@ function connectToWifi(config, ap, callback) {
       return execCommand(cmd);
     })
     .then(function() {
-      return execCommand('del "' + kioskPath + 'nodeWifiConnect.xml"');
+      return execCommand('del "' + hearcomPath + 'nodeWifiConnect.xml"');
     })
     .then(function() {
       callback && callback();
